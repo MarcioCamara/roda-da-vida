@@ -1,0 +1,1112 @@
+<nz-layout class="app-layout">
+	<nz-sider class="menu-sidebar" nzCollapsible nzWidth="180px" nzBreakpoint="xxl" [(nzCollapsed)]="isCollapsed"
+		[nzTrigger]="null">
+		<div class="sidebar-logo">
+			<!-- <a href="https://ng.ant.design/" target="_blank">
+				<img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+				<h1>Ant Design Of Angular</h1>
+			</a> -->
+		</div>
+
+		<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="true">
+			<li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTitle]="isCollapsed ? 'Home' : ''" nzSelected>
+				<i nz-icon nzType="home"></i>
+				<span>Home</span>
+			</li>
+		</ul>
+	</nz-sider>
+
+	<nz-layout>
+		<!-- <nz-header>
+			<div class="app-header">
+				 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+					<i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+				</span> 
+			</div>
+		</nz-header> -->
+
+		<nz-content>
+			<div class="inner-content">
+				<div [ngStyle]="{'display': showResults ? 'block' : 'none' }">
+					<canvas #polarChart style="max-height: 100vh;">{{ chart }}</canvas>
+
+					<button nz-button nzType="primary" (click)="resetTest()" style="margin-top: 15vh;">
+						<span>Refazer o Teste</span>
+					</button>
+				</div>
+
+				<div [ngStyle]="{'display': showTest ? 'block' : 'none' }">
+					<nz-steps [nzCurrent]="index" (nzIndexChange)="onIndexChange($event)">
+						<nz-step nzTitle="Pessoal" nzDescription="This is a description."></nz-step>
+						<nz-step nzTitle="Profissional" nzDescription="This is a description."></nz-step>
+						<nz-step nzTitle="Relacionamentos" nzDescription="This is a description."></nz-step>
+						<nz-step nzTitle="Qualidade de Vida" nzDescription="This is a description."></nz-step>
+					</nz-steps>
+
+					<div class="steps-content">
+						<div nz-row [nzGutter]="8" *ngIf="index === 0">
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Saúde">
+									<div class="topic-container">
+										<p class="topic-title">Alimentação</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[0]"></nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Exercícios físicos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[1]"></nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Horas de sono</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[2]"></nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Controle do nível de estresse</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[3]"></nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Check-up e exames de rotina</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[4]"></nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Desenvolvimento Intelectual">
+									<div class="topic-container">
+										<p class="topic-title">Participação de cursos e treinamentos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Leitura de livros e artigos diversos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Participação em atividades novas e não habituais</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Acesso a informações via jornais, revistas, fóruns</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Participação de conversas com assuntos diferentes</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Equilíbrio Emocional">
+									<div class="topic-container">
+										<p class="topic-title">Manter o foco em momentos difíceis</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Controle das emoções sob pressão e estresse</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Reações emocionais proporcionais aos eventos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Expressar opiniões de forma clara e cordial</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Controle das frustrações</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+						</div>
+
+						<div nz-row [nzGutter]="8" *ngIf="index === 1">
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Realização e Propósito">
+									<div class="topic-container">
+										<p class="topic-title">Auto imagem profissional positiva</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Satisfação com a carreira</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Oportunidades de crescimento profissional</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Atividade profissional congruente com crenças e valores
+										</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Ambiente de trabalho propício a desafios</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Recursos Financeiros">
+									<div class="topic-container">
+										<p class="topic-title">Satisfação com os recursos financeiros</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Equilíbrio entre ganhos e gastos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Reservas para possíveis crises</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Satisfação com os investimentos realizados</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Oportunidades para aumentar renda</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Contribuição Social">
+									<div class="topic-container">
+										<p class="topic-title">Desejo sincero</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10"
+												[(ngModel)]="roda.contribuicaoSocial[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Cordialidade</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10"
+												[(ngModel)]="roda.contribuicaoSocial[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Trabalho Voluntário</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10"
+												[(ngModel)]="roda.contribuicaoSocial[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+						</div>
+
+						<div nz-row [nzGutter]="8" *ngIf="index === 2">
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Família">
+									<div class="topic-container">
+										<p class="topic-title">Tempo dedicado aos familiares</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Momentos agradáveis e amistosos em família</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Diálogo e boa vontade para resolver conflitos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Grau de abertura para falar e ouvir</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Confiança e apoio mútuos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Relacionamento Amoroso">
+									<div class="topic-container">
+										<p class="topic-title">Satisfação no relacionamento ou em estar sozinho</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Tempo dedicado ao parceiro</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Grau de abertura para falar e ouvir</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Dedicação, atenção e cuidado para assuntos do
+											relacionamento
+										</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Compartilhamento de sonhos e expectativas de vida</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Vida Social">
+									<div class="topic-container">
+										<p class="topic-title">Periodicidade de festas e reuniões de amigos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Esforço para manter contato com amigos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Quantidade de encontros com amigos</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Participação em atividades em grupo</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+						</div>
+
+						<div nz-row [nzGutter]="8" *ngIf="index === 3">
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Hobbies e Diversão">
+									<div class="topic-container">
+										<p class="topic-title">Qualidade do tempo dedicado aos hobbies e lazer</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Diversidade de formas para relaxar e se divertir</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Prazer que as atividades lhe proporcionam</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Periodicidade das atividades de hobby e lazer</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Relaxamento ou revigoramento sentido após as atividades
+										</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Plenitude e Felicidade">
+									<div class="topic-container">
+										<p class="topic-title">Otimismo em relação ao futuro</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Satisfação com a vida atual</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Frequência a qual você sorri</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Autoconfiança</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Orgulho pelas conquistas do passado</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[4]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+
+							<div nz-col [nzSpan]="8">
+								<nz-card nzTitle="Espiritualidade">
+									<div class="topic-container">
+										<p class="topic-title">Paz interior</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[0]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Coerência de ações com valores</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[1]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Foco e equilíbrio interior</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[2]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+
+									<nz-divider></nz-divider>
+
+									<div class="topic-container">
+										<p class="topic-title">Tempo para si</p>
+
+										<div class="icon-wrapper">
+											<i class="slider-icon" nz-icon nzType="frown"
+												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
+
+											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[3]">
+											</nz-slider>
+
+											<i class="slider-icon" nz-icon nzType="smile"
+												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
+										</div>
+									</div>
+								</nz-card>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div [ngStyle]="{'display': showHome ? 'block' : 'none'}">
+					<article nz-typography>
+						<h1 nz-typography>Roda da Vida</h1>
+
+						<h2 nz-typography>O Que é a Roda da Vida?</h2>
+
+						<p nz-typography>
+							A Roda da Vida é uma ferramenta de Coaching que mede o índice de satisfação das pessoas em
+							áreas importantes de sua vida. Tem o formato de uma mandala, um círculo que é composto por
+							quatro importantes tríades estruturantes e que são:
+
+							<span nz-typography>
+								<strong>
+									Âmbito Pessoal, Âmbito Profissional,
+									Qualidade de Vida e Relacionamentos.
+								</strong>
+							</span>
+
+							Cada um destes indicadores, por sua vez, apresentam
+							três fundamentos essenciais, totalizando doze áreas analisadas dentro dos quatro pontos
+							centrais acima citados.
+						</p>
+
+						<p nz-typography>
+							Com notas que variam de 1 a 10, sendo um, o valor mínimo e, dez, o máximo, a Roda da Vida é
+							um instrumento poderoso de autoavaliação pessoal e profissional, porque permite que você
+							analise e classifique cada uma destas áreas segundo o seu momento atual e, com base nestas
+							informações, possa trabalhar tanto para elevar como para alinhar seus níveis de satisfação.
+						</p>
+
+						<p nz-typography>
+							Como se trata de um momento de conexão com o seu eu interior, é importante que ao fazer sua
+							Roda da Vida você seja totalmente sincero ao responder cada quesito e também esteja 100%
+							focado nas questões que ela traz. Todo este cuidado é fundamental para que se possa
+							verdadeiramente identificar os pontos que estão positivos e aqueles onde você ainda precisa
+							melhorar.
+						</p>
+
+						<h2 nz-typography>Guidelines and Resources</h2>
+
+						<p nz-typography>
+							We supply a series of design principles, practical patterns and high quality design
+							resources (<span nz-typography><code>Sketch</code></span>
+							and <span nz-typography><code>Axure</code></span>), to help people create their product
+							prototypes beautifully and efficiently.
+						</p>
+
+						<article nz-typography>
+							<ul>
+								<li>
+									<a href="/docs/spec/proximity">Principles</a>
+								</li>
+
+								<li>
+									<a href="/docs/pattern/navigation">Patterns</a>
+								</li>
+
+								<li>
+									<a href="/docs/resource/download">Resource Download</a>
+								</li>
+							</ul>
+						</article>
+					</article>
+
+					<button nz-button nzType="primary" (click)="resetTest()" style="margin-top: 24px;">
+						<span>Iniciar Teste</span>
+					</button>
+				</div>
+
+				<nz-affix [nzOffsetBottom]="24" *ngIf="showTest">
+					<button nz-button nzType="primary" (click)="onDoneTest()">
+						<span>Ver Resultados</span>
+					</button>
+				</nz-affix>
+			</div>
+		</nz-content>
+	</nz-layout>
+</nz-layout>
