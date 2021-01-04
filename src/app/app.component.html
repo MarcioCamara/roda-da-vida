@@ -1,12 +1,14 @@
+<!--
+@todo:
+	alterar texto inicial explicativo para que fique menos confuso
+	rever todos textos para tornar a leitura mais fácil e desconstraída
+	alterar todos textos para ser gênero neutro
+-->
+
 <nz-layout class="app-layout">
 	<nz-sider class="menu-sidebar" nzCollapsible nzWidth="180px" nzBreakpoint="xxl" [(nzCollapsed)]="isCollapsed"
 		[nzTrigger]="null">
-		<div class="sidebar-logo">
-			<!-- <a href="https://ng.ant.design/" target="_blank">
-				<img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-				<h1>Ant Design Of Angular</h1>
-			</a> -->
-		</div>
+		<div class="sidebar-logo"></div>
 
 		<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="true">
 			<li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTitle]="isCollapsed ? 'Home' : ''" nzSelected>
@@ -17,18 +19,35 @@
 	</nz-sider>
 
 	<nz-layout>
-		<!-- <nz-header>
-			<div class="app-header">
-				 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-					<i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
-				</span> 
-			</div>
-		</nz-header> -->
-
 		<nz-content>
 			<div class="inner-content">
 				<div [ngStyle]="{'display': showResults ? 'block' : 'none' }">
-					<canvas #polarChart style="max-height: 100vh;">{{ chart }}</canvas>
+					<i class="fas fa-info-circle"></i>
+					Passe o mouse no gráfico para visualizar os nomes das áreas
+
+					<div class="chart-result-container">
+						<canvas #polarChart style="max-width: 70%;">{{ chart }}</canvas>
+
+						<div class="result-container" style="max-width: 30%;">
+							<p>
+								A área que você está mais satisfeito ultimamente é a <strong>{{ betterArea }}</strong> e
+								possivelmente é
+								a área a qual mais se decida.
+							</p>
+
+							<p>
+								Enquanto a que menos se sente satisfeito é a <strong>{{ worstArea }}</strong> e
+								possivelmente é a area
+								a qual menos se dedica...
+							</p>
+
+							<p>
+								Busque equilibrar as coisas, talvez dedicando menos tempo e esforço a sua "melhor" área
+								e focando na que está "pior", afinal de contas não há como estar 100% satisfeito com
+								tudo!
+							</p>
+						</div>
+					</div>
 
 					<button nz-button nzType="primary" (click)="resetTest()" style="margin-top: 15vh;">
 						<span>Refazer o Teste</span>
@@ -37,10 +56,10 @@
 
 				<div [ngStyle]="{'display': showTest ? 'block' : 'none' }">
 					<nz-steps [nzCurrent]="index" (nzIndexChange)="onIndexChange($event)">
-						<nz-step nzTitle="Pessoal" nzDescription="This is a description."></nz-step>
-						<nz-step nzTitle="Profissional" nzDescription="This is a description."></nz-step>
-						<nz-step nzTitle="Relacionamentos" nzDescription="This is a description."></nz-step>
-						<nz-step nzTitle="Qualidade de Vida" nzDescription="This is a description."></nz-step>
+						<nz-step nzTitle="Pessoal"></nz-step>
+						<nz-step nzTitle="Profissional/Estudantil"></nz-step>
+						<nz-step nzTitle="Relacionamentos"></nz-step>
+						<nz-step nzTitle="Qualidade de Vida"></nz-step>
 					</nz-steps>
 
 					<div class="steps-content">
@@ -48,13 +67,23 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Saúde">
 									<div class="topic-container">
-										<p class="topic-title">Alimentação</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Alimentação</p>
+											<i nz-tooltip [nzTooltipTitle]="foodTooltip" class="fas fa-info-circle"></i>
+
+											<ng-template #foodTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua alimentação? Acha
+													que poderia se alimentar melhor?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[0]"></nz-slider>
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.saude[0]"></nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
 												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
@@ -64,13 +93,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Exercícios físicos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Exercícios físicos</p>
+											<i nz-tooltip [nzTooltipTitle]="exerciseTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #exerciseTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos exerícios físicos que
+													você pratica? Acha
+													que poderia se exercitar mais ou melhor?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[1]"></nz-slider>
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.saude[1]"></nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
 												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
@@ -80,13 +121,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Horas de sono</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Horas de sono</p>
+											<i nz-tooltip [nzTooltipTitle]="sleepTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #sleepTooltip>
+												<span>
+													O quão satisfeito você se sente em relação às horas de sono que você
+													tem diariamente? Acha que poderia dormir por mais ou menos tempo?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[2]"></nz-slider>
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.saude[2]"></nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
 												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
@@ -96,13 +148,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Controle do nível de estresse</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Controle do nível de estresse</p>
+											<i nz-tooltip [nzTooltipTitle]="stressLevelTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #stressLevelTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos métodos que utiliza
+													para tentar controlar o estresse?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[3]"></nz-slider>
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.saude[3]"></nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
 												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
@@ -112,13 +175,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Check-up e exames de rotina</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Check-up e exames de rotina</p>
+											<i nz-tooltip [nzTooltipTitle]="checkupTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #checkupTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a frequência com que
+													você realiza exames de rotina e chek-ups? Acha que poderia visitar o
+													médico com mais frequência?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.saude[4]"></nz-slider>
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.saude[4]"></nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
 												[class.icon-highlight]="nextHighLight" style="margin-left: 8px;"></i>
@@ -130,13 +205,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Desenvolvimento Intelectual">
 									<div class="topic-container">
-										<p class="topic-title">Participação de cursos e treinamentos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Participação de cursos e treinamentos</p>
+											<i nz-tooltip [nzTooltipTitle]="trainingTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #trainingTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua participação em
+													cursos e treinamentos diversos? Acha
+													que poderia se dedicar mais aos estudos?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.intelectual[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -147,13 +234,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Leitura de livros e artigos diversos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Leitura de livros e artigos diversos</p>
+											<i nz-tooltip [nzTooltipTitle]="readingTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #readingTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua leitura? Acha
+													que poderia ler materiais mais diversificados?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.intelectual[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -164,13 +262,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Participação em atividades novas e não habituais</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Participação em atividades novas e não habituais</p>
+											<i nz-tooltip [nzTooltipTitle]="activitiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #activitiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a diversidade das
+													atividades que pratica fora da rotina?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.intelectual[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -181,13 +290,26 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Acesso a informações via jornais, revistas, fóruns</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Acesso a informações via jornais, revistas, fóruns
+											</p>
+											<i nz-tooltip [nzTooltipTitle]="informationTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #informationTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao seu acesso a
+													informações via jornais, revistas e fóruns? Acha que poderia buscar
+													se informar mais por essas fontes?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.intelectual[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -198,13 +320,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Participação de conversas com assuntos diferentes</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Participação de conversas com assuntos diferentes</p>
+											<i nz-tooltip [nzTooltipTitle]="subjectsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #subjectsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua participação em
+													conversas de assuntos variados? Acha que poderia se dedicar mais a
+													conversar sobre outros assuntos?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.intelectual[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.intelectual[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -217,13 +351,24 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Equilíbrio Emocional">
 									<div class="topic-container">
-										<p class="topic-title">Manter o foco em momentos difíceis</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Manter o foco em momentos difíceis</p>
+											<i nz-tooltip [nzTooltipTitle]="focusTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #focusTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua capacidade de
+													manter o foco durante momentos difíceis e de estresse?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.emocional[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -234,13 +379,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Controle das emoções sob pressão e estresse</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Controle das emoções sob pressão e estresse</p>
+											<i nz-tooltip [nzTooltipTitle]="emotionsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #emotionsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao seu controle das
+													emoções em situações de alta pressão ou estresse?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.emocional[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -251,13 +407,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Reações emocionais proporcionais aos eventos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Reações emocionais proporcionais aos eventos</p>
+											<i nz-tooltip [nzTooltipTitle]="proportionTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #proportionTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a proporcionalidade com a
+													qual você reage aos eventos que acontecem durante seu dia? Acha que
+													poderia reagir melhor, mais calmo ou mais empolgado, por exemplo?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.emocional[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -268,13 +436,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Expressar opiniões de forma clara e cordial</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Expressar opiniões de forma clara e cordial</p>
+											<i nz-tooltip [nzTooltipTitle]="expressionTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #expressionTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua capacidade de
+													expressar suas opiniões? Acha que poderia se expressar de forma
+													mais clara ou cordial?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.emocional[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -285,13 +465,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Controle das frustrações</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Controle das frustrações</p>
+											<i nz-tooltip [nzTooltipTitle]="frustrationsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #frustrationsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos métodos que utiliza
+													para controlar suas frustrações? Acha que poderia fazer algo a mais
+													para se frustrar menos?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.emocional[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.emocional[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -306,13 +498,24 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Realização e Propósito">
 									<div class="topic-container">
-										<p class="topic-title">Auto imagem profissional positiva</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Auto imagem profissional/estudantil positiva</p>
+											<i nz-tooltip [nzTooltipTitle]="selfImageTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #selfImageTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a forma que você se vê
+													na sua profissão/escola/faculdade (postura, desempenho,
+													relações)? Acha que há muito o que melhorar? </span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.realizacao[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -323,13 +526,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Satisfação com a carreira</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Satisfação com a carreira</p>
+											<i nz-tooltip [nzTooltipTitle]="carreerTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #carreerTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua carreira? Acha
+													que há muito o que deveria mudar? Acha que está no "caminho certo"?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.realizacao[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -340,13 +554,27 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Oportunidades de crescimento profissional</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Oportunidades de crescimento profissional/estudantil
+											</p>
+											<i nz-tooltip [nzTooltipTitle]="oportunitiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #oportunitiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação as oportunidades que
+													possui para crescer em sua profissão/escola/faculdade? Acha que
+													sua empresa/instituição te oferece oportunidades ou se sente
+													"paralisado"?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.realizacao[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -357,14 +585,27 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Atividade profissional congruente com crenças e valores
-										</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Atividade profissional/estudantil X crenças e valores
+											</p>
+											<i nz-tooltip [nzTooltipTitle]="beliefsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #beliefsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a concordância entre as
+													atividade e crenças de sua empresa/escola/faculdade e suas crenças e
+													valores? Acha que seu perfil é compatível com o de sua
+													empresa/escola/faculdade?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.realizacao[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -375,13 +616,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Ambiente de trabalho propício a desafios</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Ambiente de trabalho propício a desafios</p>
+											<i nz-tooltip [nzTooltipTitle]="chalengesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #chalengesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos desafios que seu
+													ambiente de trabalho lhe proporciona? Acha que poderia ser mais
+													desafiado e sente que poderia realizar mais?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.realizacao[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.realizacao[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -394,13 +647,24 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Recursos Financeiros">
 									<div class="topic-container">
-										<p class="topic-title">Satisfação com os recursos financeiros</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Satisfação com os recursos financeiros</p>
+											<i nz-tooltip [nzTooltipTitle]="resourcesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #resourcesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos seus recursos
+													financeiros?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.financeiro[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -411,13 +675,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Equilíbrio entre ganhos e gastos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Equilíbrio entre ganhos e gastos</p>
+											<i nz-tooltip [nzTooltipTitle]="gainsExpensesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #gainsExpensesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao quanto ganha versus o
+													quanto gasta? Acha que poderia ganhar mais ou gastar menos?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.financeiro[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -428,13 +703,26 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Reservas para possíveis crises</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Reservas para possíveis crises</p>
+											<i nz-tooltip [nzTooltipTitle]="emergenciesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #emergenciesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a reservas financeiras
+													para enfrentar possíveis crises? Acha que o montante guardado
+													seria suficiente para lidar tranquilamente com um imprevisto nas
+													áreas de saúde, emprego, etc?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.financeiro[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -445,13 +733,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Satisfação com os investimentos realizados</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Satisfação com os investimentos realizados</p>
+											<i nz-tooltip [nzTooltipTitle]="investmentsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #investmentsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos investimentos
+													financeiros que tem feito? Acha que poderia investir mais ou melhor
+													na bolsa de valores, poupança, compras de ativos ou passivos, etc?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.financeiro[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -462,13 +762,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Oportunidades para aumentar renda</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Oportunidades para aumentar renda</p>
+											<i nz-tooltip [nzTooltipTitle]="growResourcesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #growResourcesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação as oportunidades atuais
+													de aumentar sua renda?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.financeiro[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.financeiro[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -481,13 +792,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Contribuição Social">
 									<div class="topic-container">
-										<p class="topic-title">Desejo sincero</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Desejo sincero</p>
+											<i nz-tooltip [nzTooltipTitle]="sincereWillTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #sincereWillTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao seu desejo sincero em
+													contribuir socialmente? Acha que deseja realmente e sinceramente
+													fazer algo pela sociedade?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10"
+											<nz-slider [nzMin]="1" [nzMax]="10"
 												[(ngModel)]="roda.contribuicaoSocial[0]">
 											</nz-slider>
 
@@ -499,13 +822,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Cordialidade</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Cordialidade</p>
+											<i nz-tooltip [nzTooltipTitle]="cordialityTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #cordialityTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a cordialidade com a qual
+													trata as pessoas diariamente? Acha que poderia se esforçar para ser
+													mais gentil?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10"
+											<nz-slider [nzMin]="1" [nzMax]="10"
 												[(ngModel)]="roda.contribuicaoSocial[1]">
 											</nz-slider>
 
@@ -517,13 +852,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Trabalho Voluntário</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Trabalho Voluntário</p>
+											<i nz-tooltip [nzTooltipTitle]="volunteerTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #volunteerTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos trabalhos voluntários
+													que pratica? Acha que poderia dedicar mais tempo a ajudar o próximo
+													sem esperar nada de volta?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10"
+											<nz-slider [nzMin]="1" [nzMax]="10"
 												[(ngModel)]="roda.contribuicaoSocial[2]">
 											</nz-slider>
 
@@ -539,13 +886,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Família">
 									<div class="topic-container">
-										<p class="topic-title">Tempo dedicado aos familiares</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Tempo dedicado aos familiares</p>
+											<i nz-tooltip [nzTooltipTitle]="familyTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #familyTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao tempo o qual você
+													dedica à sua família? Acha que poderia passar mais tempo ou melhorar
+													a atenção que decida a eles?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.familia[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -556,13 +915,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Momentos agradáveis e amistosos em família</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Momentos agradáveis e amistosos em família</p>
+											<i nz-tooltip [nzTooltipTitle]="momentsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #momentsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação aos momentos com seus
+													familiares? Acha que poderia passar mais momentos ou momentos
+													mais agradáveis com eles?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.familia[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -573,13 +944,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Diálogo e boa vontade para resolver conflitos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Diálogo e boa vontade para resolver conflitos</p>
+											<i nz-tooltip [nzTooltipTitle]="dialogueTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #dialogueTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua vontade e métodos
+													para resolver conflitos com seus familiares?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.familia[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -590,13 +972,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Grau de abertura para falar e ouvir</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Grau de abertura para falar e ouvir</p>
+											<i nz-tooltip [nzTooltipTitle]="talkListenTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #talkListenTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua disposição para
+													falar com seus familiares, seja sobre o que te incomoda ou te
+													agrada? E ouvir deles o que os incomoda ou agrada?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.familia[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -607,13 +1001,26 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Confiança e apoio mútuos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Confiança e apoio mútuos</p>
+											<i nz-tooltip [nzTooltipTitle]="confidenceTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #confidenceTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a confiança que pode
+													haver entre você e seus familiares, seja para ajudar em algo ou
+													desabafar quando necessário? Acha que poderia melhorar o apoio que
+													dão uns aos outros?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.familia[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.familia[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -626,13 +1033,24 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Relacionamento Amoroso">
 									<div class="topic-container">
-										<p class="topic-title">Satisfação no relacionamento ou em estar sozinho</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Satisfação no relacionamento amoroso</p>
+											<i nz-tooltip [nzTooltipTitle]="relationshipTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #relationshipTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a estar namorando,
+													casado, solteiro, etc?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.amoroso[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -643,13 +1061,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Tempo dedicado ao parceiro</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Tempo dedicado a parceire</p>
+											<i nz-tooltip [nzTooltipTitle]="timeDedicatedTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #timeDedicatedTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao tempo que dedica a su
+													parceire (ou a si próprio em caso de não ter parceire)?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.amoroso[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -660,13 +1089,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Grau de abertura para falar e ouvir</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Grau de abertura para falar e ouvir</p>
+											<i nz-tooltip [nzTooltipTitle]="listenTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #listenTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua disposição para
+													falar com su parceire (ou refletir consigo mesmo), seja sobre o que
+													te incomoda ou te agrada? E ouvir delus o que incomoda ou agrada?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.amoroso[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -677,15 +1118,27 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Dedicação, atenção e cuidado para assuntos do
-											relacionamento
-										</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Dedicação e cuidado para assuntos do relacionamento
+											</p>
+											<i nz-tooltip [nzTooltipTitle]="attentionTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #attentionTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua dedicação para
+													lidar com os assuntos do seu relacionamento (ou de si próprio, caso
+													solteiro)? Acha que poderia ter mais cuidado ou atenção quando o
+													assunto for su parceire (ou si mesmo)?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.amoroso[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -696,13 +1149,26 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Compartilhamento de sonhos e expectativas de vida</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Compartilhamento de sonhos e expectativas de vida</p>
+											<i nz-tooltip [nzTooltipTitle]="dreamsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #dreamsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao quanto você e su
+													parceire compartilham sonhos e desejos para o futuro? Acha que su
+													parceire tem sonhos muito divergentes dos seus? (Ou, se
+													solteiro, acha que se empenha o suficiente a esses sonhos?)
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.amoroso[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.amoroso[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -715,13 +1181,24 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Vida Social">
 									<div class="topic-container">
-										<p class="topic-title">Periodicidade de festas e reuniões de amigos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Frequência de festas e reuniões de amigos</p>
+											<i nz-tooltip [nzTooltipTitle]="partiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #partiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a frequência com a
+													qual você comparece a festas e reuniões com sus amigues?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.vidaSocial[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -732,13 +1209,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Esforço para manter contato com amigos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Esforço para manter contato com amigos</p>
+											<i nz-tooltip [nzTooltipTitle]="contactTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #contactTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao esforço que você
+													realiza para manter contato com sus amigues? Acha que poderia se
+													dedicar mais a isso ou acha que se dedica demasiadamente?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.vidaSocial[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -749,13 +1238,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Quantidade de encontros com amigos</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Quantidade de encontros com amigos</p>
+											<i nz-tooltip [nzTooltipTitle]="meetingsTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #meetingsTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a quantidade de encontros
+													que você tem tido ultimamente com sus amigues?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.vidaSocial[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -766,13 +1266,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Participação em atividades em grupo</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Participação em atividades em grupo</p>
+											<i nz-tooltip [nzTooltipTitle]="groupActivitiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #groupActivitiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua participação em
+													atividades em grupo? Acha que poderia se dedicar mais a passar tempo
+													se envolvendo em atividades desse tipo?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.vidaSocial[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.vidaSocial[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -787,13 +1299,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Hobbies e Diversão">
 									<div class="topic-container">
-										<p class="topic-title">Qualidade do tempo dedicado aos hobbies e lazer</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Qualidade do tempo dedicado aos hobbies e lazer</p>
+											<i nz-tooltip [nzTooltipTitle]="hobbiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #hobbiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a qualidade do tempo que
+													você dedica a seus seus hobbies e ao lazer? Acha que poderia
+													aproveitar mais se mudasse algo?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.diversao[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -804,13 +1328,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Diversidade de formas para relaxar e se divertir</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Diversidade de formas para relaxar e se divertir</p>
+											<i nz-tooltip [nzTooltipTitle]="relaxTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #relaxTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a diversidade de métodos
+													que usa atualmente para relaxar e se divertir? Acha que poderia
+													variar mais, descobrir novos gostos?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.diversao[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -821,13 +1357,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Prazer que as atividades lhe proporcionam</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Prazer que as atividades lhe proporcionam</p>
+											<i nz-tooltip [nzTooltipTitle]="pleasureTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #pleasureTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao prazer que as
+													atividades trazem? Acha que fica feliz e relaxado realizando
+													atividades com esse intuito? Ou sente que "nada lhe deixa feliz"?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.diversao[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -838,13 +1386,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Periodicidade das atividades de hobby e lazer</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">frequência das atividades de hobby e lazer</p>
+											<i nz-tooltip [nzTooltipTitle]="periodHobbiesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #periodHobbiesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a frequência com a
+													qual você realiza alguma atividade que seja seu hobby ou lazer? Acha
+													que poderia realizá-las com mais frequência?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.diversao[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -855,14 +1415,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Relaxamento ou revigoramento sentido após as atividades
-										</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Relaxamento ou revigoramento após as atividades</p>
+											<i nz-tooltip [nzTooltipTitle]="invigorationTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #invigorationTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao revigoramento sentido
+													após atividades com esse intuito? Acha que mesmo após um dia
+													de descanso ainda se sente exausto e não consegue relaxar?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.diversao[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.diversao[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -875,13 +1446,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Plenitude e Felicidade">
 									<div class="topic-container">
-										<p class="topic-title">Otimismo em relação ao futuro</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Otimismo em relação ao futuro</p>
+											<i nz-tooltip [nzTooltipTitle]="otimismTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #otimismTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao seu otimismo e
+													expectativas para o futuro? Acha que seu otimismo é "equilibrado" ou
+													acha que poderia ser mais ou menos otimista?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.felicidade[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -892,13 +1475,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Satisfação com a vida atual</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Satisfação com a vida atual</p>
+											<i nz-tooltip [nzTooltipTitle]="actualLifeTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #actualLifeTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua vida atualmente?
+													Acha que há grandes mudanças de modo geral que precisam ser feitas?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.felicidade[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -909,13 +1503,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Frequência a qual você sorri</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Frequência a qual você sorri</p>
+											<i nz-tooltip [nzTooltipTitle]="smileTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #smileTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a frequência com a qual
+													você sorri? Acha que poderia tentar sorrir mais e buscar "um lado
+													melhor da vida"?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.felicidade[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -926,13 +1532,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Autoconfiança</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Autoconfiança</p>
+											<i nz-tooltip [nzTooltipTitle]="autoconfidenceTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #autoconfidenceTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua autoconfiança? Acha
+													que você confia de forma equilibrada em si mesmo ou acha que confia
+													mais ou menos do que deveria?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.felicidade[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -943,13 +1561,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Orgulho pelas conquistas do passado</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Orgulho pelas conquistas do passado</p>
+											<i nz-tooltip [nzTooltipTitle]="prideTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #prideTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao orgulho que sente
+													pelas conquistas realizadas no passado? Acha que sabe reconhecer de
+													forma adequada suas conquistas ou você as exagera ou as menospreza?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.felicidade[4]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.felicidade[4]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -962,13 +1592,25 @@
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Espiritualidade">
 									<div class="topic-container">
-										<p class="topic-title">Paz interior</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Paz interior</p>
+											<i nz-tooltip [nzTooltipTitle]="interiorPeaceTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #interiorPeaceTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a sua paz interior? Acha
+													que há alguma pendência que deveria ser resolvida? Sente-se bem
+													consigo mesmo?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[0]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.espiritualidade[0]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -979,13 +1621,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Coerência de ações com valores</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Coerência de ações com valores</p>
+											<i nz-tooltip [nzTooltipTitle]="actionsValuesTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #actionsValuesTooltip>
+												<span>
+													O quão satisfeito você se sente em relação a coerência que existe
+													entre suas ações e seus valores? Acha que age de acordo com aquilo
+													que acredita ser o correto, de acordo com aquilo que "prega"?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[1]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.espiritualidade[1]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -996,13 +1650,24 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Foco e equilíbrio interior</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Foco e equilíbrio interior</p>
+											<i nz-tooltip [nzTooltipTitle]="innerBalanceTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #innerBalanceTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao seu foco e equilíbrio
+													interior? Acha que é focado na quantidade certa?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[2]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.espiritualidade[2]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -1013,13 +1678,25 @@
 									<nz-divider></nz-divider>
 
 									<div class="topic-container">
-										<p class="topic-title">Tempo para si</p>
+										<div class="topic-icon-container">
+											<p class="topic-title">Tempo para si</p>
+											<i nz-tooltip [nzTooltipTitle]="selfTimeTooltip"
+												class="fas fa-info-circle"></i>
+
+											<ng-template #selfTimeTooltip>
+												<span>
+													O quão satisfeito você se sente em relação ao tempo que dedica a si
+													mesmo? Acha que poderia gastar um tempo maior ou de mais qualidade
+													cuidando de si, seja do físico, da mente, dos conhecimentos, etc?
+												</span>
+											</ng-template>
+										</div>
 
 										<div class="icon-wrapper">
 											<i class="slider-icon" nz-icon nzType="frown"
 												[class.icon-highlight]="preHighLight" style="margin-right: 8px;"></i>
 
-											<nz-slider [nzMin]="0" [nzMax]="10" [(ngModel)]="roda.espiritualidade[3]">
+											<nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="roda.espiritualidade[3]">
 											</nz-slider>
 
 											<i class="slider-icon" nz-icon nzType="smile"
@@ -1045,7 +1722,7 @@
 
 							<span nz-typography>
 								<strong>
-									Âmbito Pessoal, Âmbito Profissional,
+									Pessoal, Profissional/Estudantil,
 									Qualidade de Vida e Relacionamentos.
 								</strong>
 							</span>
@@ -1056,10 +1733,11 @@
 						</p>
 
 						<p nz-typography>
-							Com notas que variam de 1 a 10, sendo um, o valor mínimo e, dez, o máximo, a Roda da Vida é
-							um instrumento poderoso de autoavaliação pessoal e profissional, porque permite que você
-							analise e classifique cada uma destas áreas segundo o seu momento atual e, com base nestas
-							informações, possa trabalhar tanto para elevar como para alinhar seus níveis de satisfação.
+							Com notas que variam de 1 a 10, a Roda da Vida é um instrumento poderoso de autoavaliação
+							pessoal e profissional/estudantil, porque permite que você analise e classifique cada uma
+							destas áreas
+							segundo o seu momento atual e, com base nestas informações, possa trabalhar tanto para
+							elevar como para alinhar seus níveis de satisfação.
 						</p>
 
 						<p nz-typography>
@@ -1069,31 +1747,6 @@
 							verdadeiramente identificar os pontos que estão positivos e aqueles onde você ainda precisa
 							melhorar.
 						</p>
-
-						<h2 nz-typography>Guidelines and Resources</h2>
-
-						<p nz-typography>
-							We supply a series of design principles, practical patterns and high quality design
-							resources (<span nz-typography><code>Sketch</code></span>
-							and <span nz-typography><code>Axure</code></span>), to help people create their product
-							prototypes beautifully and efficiently.
-						</p>
-
-						<article nz-typography>
-							<ul>
-								<li>
-									<a href="/docs/spec/proximity">Principles</a>
-								</li>
-
-								<li>
-									<a href="/docs/pattern/navigation">Patterns</a>
-								</li>
-
-								<li>
-									<a href="/docs/resource/download">Resource Download</a>
-								</li>
-							</ul>
-						</article>
 					</article>
 
 					<button nz-button nzType="primary" (click)="resetTest()" style="margin-top: 24px;">
@@ -1102,8 +1755,12 @@
 				</div>
 
 				<nz-affix [nzOffsetBottom]="24" *ngIf="showTest">
-					<button nz-button nzType="primary" (click)="onDoneTest()">
+					<button nz-button nzType="primary" (click)="onDoneTest()" *ngIf="index === 3">
 						<span>Ver Resultados</span>
+					</button>
+
+					<button nz-button nzType="primary" (click)="index = index + 1" *ngIf="index !== 3">
+						<span>Próximo Passo</span>
 					</button>
 				</nz-affix>
 			</div>

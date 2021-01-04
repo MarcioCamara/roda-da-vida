@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
   roda: any = {};
   rodaFinal: any = {};
 
+  betterArea = null;
+  worstArea = null;
 
   @ViewChild('polarChart', { static: true }) chartRef;
   chart: any;
@@ -82,6 +84,11 @@ export class AppComponent implements OnInit {
         felicidade: [0, 0, 0, 0, 0],
         espiritualidade: [0, 0, 0, 0],
       };
+
+      this.betterArea = null;
+      this.worstArea = null;
+
+      this.index = 0;
     });
   }
 
@@ -97,6 +104,60 @@ export class AppComponent implements OnInit {
 
   onDoneTest() {
     const calculateAverage = (array) => array.reduce((a, b) => a + b) / array.length;
+
+    const results = [
+      {
+        label: 'Saúde',
+        result: Math.round(calculateAverage(this.roda.saude)),
+      },
+      {
+        label: 'Intelectual',
+        result: Math.round(calculateAverage(this.roda.intelectual)),
+      },
+      {
+        label: 'Emocional',
+        result: Math.round(calculateAverage(this.roda.emocional)),
+      },
+      {
+        label: 'Realização',
+        result: Math.round(calculateAverage(this.roda.realizacao)),
+      },
+      {
+        label: 'Financeiro',
+        result: Math.round(calculateAverage(this.roda.financeiro)),
+      },
+      {
+        label: 'Contribuição Social',
+        result: Math.round(calculateAverage(this.roda.contribuicaoSocial)),
+      },
+      {
+        label: 'Família',
+        result: Math.round(calculateAverage(this.roda.familia)),
+      },
+      {
+        label: 'Amoroso',
+        result: Math.round(calculateAverage(this.roda.amoroso)),
+      },
+      {
+        label: 'Vida Social',
+        result: Math.round(calculateAverage(this.roda.vidaSocial)),
+      },
+      {
+        label: 'Diversão',
+        result: Math.round(calculateAverage(this.roda.diversao)),
+      },
+      {
+        label: 'Felicidade',
+        result: Math.round(calculateAverage(this.roda.felicidade)),
+      },
+      {
+        label: 'Espiritualidade',
+        result: Math.round(calculateAverage(this.roda.espiritualidade)),
+      },
+    ];
+
+    this.betterArea = (results.reduce((p, c) => p.result > c.result ? p : c)).label;
+    this.worstArea = (results.reduce((p, c) => p.result < c.result ? p : c)).label;
 
     this.rodaFinal = {
       datasets: [

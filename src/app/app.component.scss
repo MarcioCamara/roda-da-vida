@@ -5,9 +5,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-// .app-layout {
-//     height: 100vh;
-// }
+.app-layout {
+    max-width: 100%;
+}
 
 .menu-sidebar {
     position: relative;
@@ -124,4 +124,20 @@ nz-content {
 
 .topic-title {
     margin-bottom: 0 !important;
+    margin-right: 8px;
+}
+
+.topic-icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-result-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    margin-top: 64px;
 }
