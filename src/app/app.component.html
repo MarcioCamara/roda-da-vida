@@ -2,7 +2,6 @@
 @todo:
 	alterar texto inicial explicativo para que fique menos confuso
 	rever todos textos para tornar a leitura mais fácil e desconstraída
-	alterar todos textos para ser gênero neutro
 -->
 
 <nz-layout class="app-layout">
@@ -63,6 +62,12 @@
 					</nz-steps>
 
 					<div class="steps-content">
+						<div class="explanation-container">
+							<p>Dê uma nota para satisfação que você tem em relação a cada um dos itens dentre todas categorias,
+								sendo 1 "estou muito insatisfeito" e 10 "estou muito satisfeito", sendo 1 "acho que está péssimo" e 10 "acho que está perfeito", etc.</p>
+							<p>Em caso de dúvida em relação ao item, passe o mouse no ícone de informação (<i class="fas fa-info-circle"></i>) e veja um explicação sobre o tema!</p>
+						</div>
+						
 						<div nz-row [nzGutter]="8" *ngIf="index === 0">
 							<div nz-col [nzSpan]="8">
 								<nz-card nzTitle="Saúde">
@@ -73,7 +78,7 @@
 
 											<ng-template #foodTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua alimentação? Acha
+													O quão satisfeito você está com sua alimentação? Acha
 													que poderia se alimentar melhor?
 												</span>
 											</ng-template>
@@ -100,9 +105,8 @@
 
 											<ng-template #exerciseTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos exerícios físicos que
-													você pratica? Acha
-													que poderia se exercitar mais ou melhor?
+													O quão satisfeito você está com a quantidade de exerícios físicos que pratica?
+													Acha que poderia se exercitar mais ou melhor?
 												</span>
 											</ng-template>
 										</div>
@@ -128,8 +132,8 @@
 
 											<ng-template #sleepTooltip>
 												<span>
-													O quão satisfeito você se sente em relação às horas de sono que você
-													tem diariamente? Acha que poderia dormir por mais ou menos tempo?
+													O quão satisfeito você está com a quantidade de tempo que você dorme diariamente?
+													Acha que poderia dormir por mais ou menos tempo?
 												</span>
 											</ng-template>
 										</div>
@@ -155,8 +159,8 @@
 
 											<ng-template #stressLevelTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos métodos que utiliza
-													para tentar controlar o estresse?
+													O quão satisfeito você está com as formas que utiliza
+													para tentar controlar seu estresse?
 												</span>
 											</ng-template>
 										</div>
@@ -182,9 +186,8 @@
 
 											<ng-template #checkupTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a frequência com que
-													você realiza exames de rotina e chek-ups? Acha que poderia visitar o
-													médico com mais frequência?
+													O quão satisfeito você está com a frequência com que realiza exames de rotina e check-ups?
+													Acha que poderia visitar o médico mais vezes?
 												</span>
 											</ng-template>
 										</div>
@@ -212,9 +215,8 @@
 
 											<ng-template #trainingTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua participação em
-													cursos e treinamentos diversos? Acha
-													que poderia se dedicar mais aos estudos?
+													O quão satisfeito você está com sua participação em
+													cursos e treinamentos? Acha que poderia se dedicar mais aos estudos?
 												</span>
 											</ng-template>
 										</div>
@@ -241,7 +243,7 @@
 
 											<ng-template #readingTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua leitura? Acha
+													O quão satisfeito você está com a sua leitura? Acha
 													que poderia ler materiais mais diversificados?
 												</span>
 											</ng-template>
@@ -269,8 +271,8 @@
 
 											<ng-template #activitiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a diversidade das
-													atividades que pratica fora da rotina?
+													O quão satisfeito você está com a diversidade das atividades que pratica fora da rotina? Acha que poderia praticar
+													mais aquelas atividades que saem de seu padrão?
 												</span>
 											</ng-template>
 										</div>
@@ -291,16 +293,15 @@
 
 									<div class="topic-container">
 										<div class="topic-icon-container">
-											<p class="topic-title">Acesso a informações via jornais, revistas, fóruns
+											<p class="topic-title">Acesso a informações via jornais, revistas e fóruns
 											</p>
 											<i nz-tooltip [nzTooltipTitle]="informationTooltip"
 												class="fas fa-info-circle"></i>
 
 											<ng-template #informationTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao seu acesso a
-													informações via jornais, revistas e fóruns? Acha que poderia buscar
-													se informar mais por essas fontes?
+													O quão satisfeito você está com seu acesso a informações via jornais, revistas e fóruns?
+													Acha que poderia buscar se informar mais por essas fontes?
 												</span>
 											</ng-template>
 										</div>
@@ -327,9 +328,9 @@
 
 											<ng-template #subjectsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua participação em
+													O quão satisfeito você está com a sua participação em
 													conversas de assuntos variados? Acha que poderia se dedicar mais a
-													conversar sobre outros assuntos?
+													conversar sobre outros assuntos os quais não está acostumado?
 												</span>
 											</ng-template>
 										</div>
@@ -358,8 +359,8 @@
 
 											<ng-template #focusTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua capacidade de
-													manter o foco durante momentos difíceis e de estresse?
+													O quão satisfeito você está com a sua capacidade de
+													manter o foco durante momentos difíceis e complicados?
 												</span>
 											</ng-template>
 										</div>
@@ -386,8 +387,8 @@
 
 											<ng-template #emotionsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao seu controle das
-													emoções em situações de alta pressão ou estresse?
+													O quão satisfeito você está com o controle de suas emoções em situações de pressão 
+													ou estresse? Acha que se controla?
 												</span>
 											</ng-template>
 										</div>
@@ -414,9 +415,8 @@
 
 											<ng-template #proportionTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a proporcionalidade com a
-													qual você reage aos eventos que acontecem durante seu dia? Acha que
-													poderia reagir melhor, mais calmo ou mais empolgado, por exemplo?
+													O quão satisfeito você está com a forma que você reage aos eventos que acontecem com você?
+													Acha que poderia reagir melhor, mais calmo ou mais empolgado, por exemplo?
 												</span>
 											</ng-template>
 										</div>
@@ -443,9 +443,8 @@
 
 											<ng-template #expressionTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua capacidade de
-													expressar suas opiniões? Acha que poderia se expressar de forma
-													mais clara ou cordial?
+													O quão satisfeito você está com a sua capacidade de expressar suas opiniões?
+													Acha que poderia se expressar de forma mais clara ou ser mais simpático?
 												</span>
 											</ng-template>
 										</div>
@@ -472,7 +471,7 @@
 
 											<ng-template #frustrationsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos métodos que utiliza
+													O quão satisfeito você está com as formas que utiliza
 													para controlar suas frustrações? Acha que poderia fazer algo a mais
 													para se frustrar menos?
 												</span>
@@ -505,9 +504,9 @@
 
 											<ng-template #selfImageTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a forma que você se vê
-													na sua profissão/escola/faculdade (postura, desempenho,
-													relações)? Acha que há muito o que melhorar? </span>
+													O quão satisfeito você está com a forma que você se vê na sua empresa/escola/faculdade 
+													(postura, desempenho, relações)? Acha que há muito a melhorar?
+												</span>
 											</ng-template>
 										</div>
 
@@ -527,14 +526,14 @@
 
 									<div class="topic-container">
 										<div class="topic-icon-container">
-											<p class="topic-title">Satisfação com a carreira</p>
+											<p class="topic-title">Satisfação com a carreira profissional/estudantil</p>
 											<i nz-tooltip [nzTooltipTitle]="carreerTooltip"
 												class="fas fa-info-circle"></i>
 
 											<ng-template #carreerTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua carreira? Acha
-													que há muito o que deveria mudar? Acha que está no "caminho certo"?
+													O quão satisfeito você está com a sua carreira profissional/estudantil? Acha
+													que há muito para mudar? Acha que está "no caminho certo"?
 												</span>
 											</ng-template>
 										</div>
@@ -562,10 +561,9 @@
 
 											<ng-template #oportunitiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação as oportunidades que
-													possui para crescer em sua profissão/escola/faculdade? Acha que
-													sua empresa/instituição te oferece oportunidades ou se sente
-													"paralisado"?
+													O quão satisfeito você está com suas chances de crescer em sua
+													empresa/escola/faculdade? Acha que sua empresa/instituição de ensino te oferece chances de
+													crescimento ou se sente "paralisado"?
 												</span>
 											</ng-template>
 										</div>
@@ -593,10 +591,10 @@
 
 											<ng-template #beliefsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a concordância entre as
-													atividade e crenças de sua empresa/escola/faculdade e suas crenças e
-													valores? Acha que seu perfil é compatível com o de sua
-													empresa/escola/faculdade?
+													O quão satisfeito você está com a concordância entre as
+													atividades e crenças de sua empresa/escola/faculdade e suas crenças e
+													valores? Acha que o que sua empresa/escola/faculdade faz e diz 
+													corresponde com suas ações e falas?
 												</span>
 											</ng-template>
 										</div>
@@ -623,9 +621,8 @@
 
 											<ng-template #chalengesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos desafios que seu
-													ambiente de trabalho lhe proporciona? Acha que poderia ser mais
-													desafiado e sente que poderia realizar mais?
+													O quão satisfeito você está com os desafios que sua empresa/escola/faculdade lhe proporciona?
+													Acha que poderia ser mais desafiado e sente que poderia fazer mais?
 												</span>
 											</ng-template>
 										</div>
@@ -654,8 +651,8 @@
 
 											<ng-template #resourcesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos seus recursos
-													financeiros?
+													O quão satisfeito você está com seus recursos financeiros?
+													Acha que ganha dinheiro suficiente, seja do seu trabalho, pensão, mesada, etc?
 												</span>
 											</ng-template>
 										</div>
@@ -682,8 +679,8 @@
 
 											<ng-template #gainsExpensesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao quanto ganha versus o
-													quanto gasta? Acha que poderia ganhar mais ou gastar menos?
+													O quão satisfeito você está com o quanto ganha em comparação com o
+													quanto gasta? Acha que poderia ganhar mais e/ou gastar menos?
 												</span>
 											</ng-template>
 										</div>
@@ -710,10 +707,9 @@
 
 											<ng-template #emergenciesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a reservas financeiras
-													para enfrentar possíveis crises? Acha que o montante guardado
-													seria suficiente para lidar tranquilamente com um imprevisto nas
-													áreas de saúde, emprego, etc?
+													O quão satisfeito você está com o dinheiro que tem guardado
+													para enfrentar possíveis problemas? Acha que o dinheiro guardado
+													seria suficiente para resolver um imprevisto como doença, desemprego, etc?
 												</span>
 											</ng-template>
 										</div>
@@ -740,9 +736,9 @@
 
 											<ng-template #investmentsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos investimentos
-													financeiros que tem feito? Acha que poderia investir mais ou melhor
-													na bolsa de valores, poupança, compras de ativos ou passivos, etc?
+													O quão satisfeito você está com os investimentos financeiros que tem feito?
+													Acha que poderia investir melhor seu dinheiro, seja comprando algo que te dê vantagens
+													imediatas ou te renda vantagens futuras?
 												</span>
 											</ng-template>
 										</div>
@@ -769,8 +765,8 @@
 
 											<ng-template #growResourcesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação as oportunidades atuais
-													de aumentar sua renda?
+													O quão satisfeito você está com as chances atuais de aumentar sua renda?
+													Acha que possui chances de ganhar mais dinheiro, seja em seu salário, pensão, mesada, etc?
 												</span>
 											</ng-template>
 										</div>
@@ -799,9 +795,8 @@
 
 											<ng-template #sincereWillTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao seu desejo sincero em
-													contribuir socialmente? Acha que deseja realmente e sinceramente
-													fazer algo pela sociedade?
+													O quão satisfeito você está com seu desejo sincero em contribuir com a sociedade?
+													Acha que deseja sinceramente fazer algo pela sociedade e pelo próximo?
 												</span>
 											</ng-template>
 										</div>
@@ -829,9 +824,9 @@
 
 											<ng-template #cordialityTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a cordialidade com a qual
+													O quão satisfeito você está com a gentileza com a qual
 													trata as pessoas diariamente? Acha que poderia se esforçar para ser
-													mais gentil?
+													mais gentil ou simpático?
 												</span>
 											</ng-template>
 										</div>
@@ -859,9 +854,8 @@
 
 											<ng-template #volunteerTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos trabalhos voluntários
-													que pratica? Acha que poderia dedicar mais tempo a ajudar o próximo
-													sem esperar nada de volta?
+													O quão satisfeito você está com os trabalhos voluntários que pratica ou deixa de praticar?
+													Acha que poderia dedicar mais tempo a ajudar o próximo sem esperar nada em troca?
 												</span>
 											</ng-template>
 										</div>
@@ -893,9 +887,8 @@
 
 											<ng-template #familyTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao tempo o qual você
-													dedica à sua família? Acha que poderia passar mais tempo ou melhorar
-													a atenção que decida a eles?
+													O quão satisfeito você está com o tempo que dedica à sua família?
+													Acha que poderia passar mais tempo ou dar mais atenção a eles?
 												</span>
 											</ng-template>
 										</div>
@@ -922,9 +915,8 @@
 
 											<ng-template #momentsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação aos momentos com seus
-													familiares? Acha que poderia passar mais momentos ou momentos
-													mais agradáveis com eles?
+													O quão satisfeito você está com os momentos com seus familiares?
+													Acha que poderia passar mais momentos ou momentos mais agradáveis com eles?
 												</span>
 											</ng-template>
 										</div>
@@ -951,8 +943,8 @@
 
 											<ng-template #dialogueTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua vontade e métodos
-													para resolver conflitos com seus familiares?
+													O quão satisfeito você está com a sua vontade e suas formas
+													de resolver brigas e diferenças de opiniões com seus familiares?
 												</span>
 											</ng-template>
 										</div>
@@ -979,9 +971,9 @@
 
 											<ng-template #talkListenTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua disposição para
-													falar com seus familiares, seja sobre o que te incomoda ou te
-													agrada? E ouvir deles o que os incomoda ou agrada?
+													O quão satisfeito você está com a sua vontade de
+													falar com seus familiares, seja sobre o que você gosta ou não gosta?
+													E ouvir deles o que eles gostam ou não gostam?
 												</span>
 											</ng-template>
 										</div>
@@ -1008,8 +1000,8 @@
 
 											<ng-template #confidenceTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a confiança que pode
-													haver entre você e seus familiares, seja para ajudar em algo ou
+													O quão satisfeito você está com a confiança que pode
+													ter com seus familiares, seja para dar ou pedir ajuda em algo ou
 													desabafar quando necessário? Acha que poderia melhorar o apoio que
 													dão uns aos outros?
 												</span>
@@ -1040,7 +1032,7 @@
 
 											<ng-template #relationshipTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a estar namorando,
+													O quão satisfeito você está com a estar namorando,
 													casado, solteiro, etc?
 												</span>
 											</ng-template>
@@ -1068,7 +1060,7 @@
 
 											<ng-template #timeDedicatedTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao tempo que dedica a su
+													O quão satisfeito você está com ao tempo que dedica a su
 													parceire (ou a si próprio em caso de não ter parceire)?
 												</span>
 											</ng-template>
@@ -1096,7 +1088,7 @@
 
 											<ng-template #listenTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua disposição para
+													O quão satisfeito você está com a sua disposição para
 													falar com su parceire (ou refletir consigo mesmo), seja sobre o que
 													te incomoda ou te agrada? E ouvir delus o que incomoda ou agrada?
 												</span>
@@ -1126,7 +1118,7 @@
 
 											<ng-template #attentionTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua dedicação para
+													O quão satisfeito você está com a sua dedicação para
 													lidar com os assuntos do seu relacionamento (ou de si próprio, caso
 													solteiro)? Acha que poderia ter mais cuidado ou atenção quando o
 													assunto for su parceire (ou si mesmo)?
@@ -1156,7 +1148,7 @@
 
 											<ng-template #dreamsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao quanto você e su
+													O quão satisfeito você está com ao quanto você e su
 													parceire compartilham sonhos e desejos para o futuro? Acha que su
 													parceire tem sonhos muito divergentes dos seus? (Ou, se
 													solteiro, acha que se empenha o suficiente a esses sonhos?)
@@ -1188,7 +1180,7 @@
 
 											<ng-template #partiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a frequência com a
+													O quão satisfeito você está com a frequência com a
 													qual você comparece a festas e reuniões com sus amigues?
 												</span>
 											</ng-template>
@@ -1216,7 +1208,7 @@
 
 											<ng-template #contactTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao esforço que você
+													O quão satisfeito você está com ao esforço que você
 													realiza para manter contato com sus amigues? Acha que poderia se
 													dedicar mais a isso ou acha que se dedica demasiadamente?
 												</span>
@@ -1245,7 +1237,7 @@
 
 											<ng-template #meetingsTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a quantidade de encontros
+													O quão satisfeito você está com a quantidade de encontros
 													que você tem tido ultimamente com sus amigues?
 												</span>
 											</ng-template>
@@ -1273,7 +1265,7 @@
 
 											<ng-template #groupActivitiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua participação em
+													O quão satisfeito você está com a sua participação em
 													atividades em grupo? Acha que poderia se dedicar mais a passar tempo
 													se envolvendo em atividades desse tipo?
 												</span>
@@ -1306,7 +1298,7 @@
 
 											<ng-template #hobbiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a qualidade do tempo que
+													O quão satisfeito você está com a qualidade do tempo que
 													você dedica a seus seus hobbies e ao lazer? Acha que poderia
 													aproveitar mais se mudasse algo?
 												</span>
@@ -1335,7 +1327,7 @@
 
 											<ng-template #relaxTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a diversidade de métodos
+													O quão satisfeito você está com a diversidade de métodos
 													que usa atualmente para relaxar e se divertir? Acha que poderia
 													variar mais, descobrir novos gostos?
 												</span>
@@ -1364,7 +1356,7 @@
 
 											<ng-template #pleasureTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao prazer que as
+													O quão satisfeito você está com ao prazer que as
 													atividades trazem? Acha que fica feliz e relaxado realizando
 													atividades com esse intuito? Ou sente que "nada lhe deixa feliz"?
 												</span>
@@ -1393,7 +1385,7 @@
 
 											<ng-template #periodHobbiesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a frequência com a
+													O quão satisfeito você está com a frequência com a
 													qual você realiza alguma atividade que seja seu hobby ou lazer? Acha
 													que poderia realizá-las com mais frequência?
 												</span>
@@ -1422,7 +1414,7 @@
 
 											<ng-template #invigorationTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao revigoramento sentido
+													O quão satisfeito você está com ao revigoramento sentido
 													após atividades com esse intuito? Acha que mesmo após um dia
 													de descanso ainda se sente exausto e não consegue relaxar?
 												</span>
@@ -1453,7 +1445,7 @@
 
 											<ng-template #otimismTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao seu otimismo e
+													O quão satisfeito você está com ao seu otimismo e
 													expectativas para o futuro? Acha que seu otimismo é "equilibrado" ou
 													acha que poderia ser mais ou menos otimista?
 												</span>
@@ -1482,7 +1474,7 @@
 
 											<ng-template #actualLifeTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua vida atualmente?
+													O quão satisfeito você está com a sua vida atualmente?
 													Acha que há grandes mudanças de modo geral que precisam ser feitas?
 												</span>
 											</ng-template>
@@ -1510,7 +1502,7 @@
 
 											<ng-template #smileTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a frequência com a qual
+													O quão satisfeito você está com a frequência com a qual
 													você sorri? Acha que poderia tentar sorrir mais e buscar "um lado
 													melhor da vida"?
 												</span>
@@ -1539,7 +1531,7 @@
 
 											<ng-template #autoconfidenceTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua autoconfiança? Acha
+													O quão satisfeito você está com a sua autoconfiança? Acha
 													que você confia de forma equilibrada em si mesmo ou acha que confia
 													mais ou menos do que deveria?
 												</span>
@@ -1568,7 +1560,7 @@
 
 											<ng-template #prideTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao orgulho que sente
+													O quão satisfeito você está com ao orgulho que sente
 													pelas conquistas realizadas no passado? Acha que sabe reconhecer de
 													forma adequada suas conquistas ou você as exagera ou as menospreza?
 												</span>
@@ -1599,7 +1591,7 @@
 
 											<ng-template #interiorPeaceTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a sua paz interior? Acha
+													O quão satisfeito você está com a sua paz interior? Acha
 													que há alguma pendência que deveria ser resolvida? Sente-se bem
 													consigo mesmo?
 												</span>
@@ -1628,7 +1620,7 @@
 
 											<ng-template #actionsValuesTooltip>
 												<span>
-													O quão satisfeito você se sente em relação a coerência que existe
+													O quão satisfeito você está com a coerência que existe
 													entre suas ações e seus valores? Acha que age de acordo com aquilo
 													que acredita ser o correto, de acordo com aquilo que "prega"?
 												</span>
@@ -1657,7 +1649,7 @@
 
 											<ng-template #innerBalanceTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao seu foco e equilíbrio
+													O quão satisfeito você está com ao seu foco e equilíbrio
 													interior? Acha que é focado na quantidade certa?
 												</span>
 											</ng-template>
@@ -1685,7 +1677,7 @@
 
 											<ng-template #selfTimeTooltip>
 												<span>
-													O quão satisfeito você se sente em relação ao tempo que dedica a si
+													O quão satisfeito você está com ao tempo que dedica a si
 													mesmo? Acha que poderia gastar um tempo maior ou de mais qualidade
 													cuidando de si, seja do físico, da mente, dos conhecimentos, etc?
 												</span>

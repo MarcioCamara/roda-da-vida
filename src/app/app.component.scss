@@ -141,3 +141,17 @@ nz-content {
     justify-content: space-between;
     margin-top: 64px;
 }
+
+.explanation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    text-align: left;
+    font-size: 14px;
+    background: white;
+    padding: 16px 24px;
+    margin: 8px 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 2px;
+}
